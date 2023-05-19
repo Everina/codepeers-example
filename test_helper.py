@@ -1,3 +1,4 @@
+from time import time
 from typing import Any, Callable, List
 import json
 
@@ -5,11 +6,14 @@ def deep_equals(got: Any, expected: Any) -> bool:
     return json.dumps(got) == json.dumps(expected)
     
 def general_test(fn, test_cases):
+    start_time = time()
     for i, case in enumerate(test_cases):
         *params, expected = case
         ret = fn(*params)
         if not deep_equals(ret, expected):
             raise RuntimeError(f"wrong answer on test case {i + 1}, got {ret}")
+    exec_time = time() - start_time
+    print(f"passed {len(test_cases)} tests in {round(exec_time * 1000, 3)} ms")
     
 def test_two_sum(fn: Callable[[List[int], int], List[int]]):
     test_cases = [
