@@ -1,1 +1,1 @@
-codepeers>=0.3.0
+codepeers>=0.3.1
